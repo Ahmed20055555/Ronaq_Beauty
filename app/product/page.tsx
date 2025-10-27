@@ -46,7 +46,7 @@ export default function Products() {
           <input
             type="range"
             min="0"
-            max="1000"
+            max="200"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
             className="w-40 accent-black"
