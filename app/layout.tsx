@@ -5,6 +5,7 @@ import { FavProvider } from "./context/fav";
 import Navbar from "./navbar/page";
 import { Toaster } from "react-hot-toast";
 import { ShopingProvider } from "./context/shoping";
+import Footer from "./footer/page";
 
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Navbar />
               {children}
               <Toaster position="top-center" reverseOrder={false} />
+              <Footer />
           </ShopingProvider>
         </FavProvider>
       </body>

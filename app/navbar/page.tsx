@@ -1,7 +1,6 @@
 'use client'
 import { FaFacebook, FaWhatsapp, FaInstagram, FaFacebookMessenger, FaHeart } from "react-icons/fa6";
 import Link from 'next/link';
-import { useState } from 'react';
 import { useFav } from "../context/fav";
 import { useShoping } from "../context/shoping";
 import { FaShoppingCart } from "react-icons/fa";
