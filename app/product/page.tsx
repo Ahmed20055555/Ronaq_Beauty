@@ -109,7 +109,7 @@ export default function Products() {
                           isshop ?
                             <button
                               onClick={() => addToShoping(product)}
-                              className="cursor-pointer flex items-center  max-[270px]:mb-3 gap-2 text-white bg-green-500 px-2 py-2 rounded-xl hover:bg-green-800 transition"
+                              className="cursor-pointer flex items-center max-[270px]:mb-3 gap-2 text-white bg-green-500 px-2 py-2 rounded-xl hover:bg-green-800 transition"
                             >
                               <FaShoppingCart /> تم الاضافه  
                             </button>
