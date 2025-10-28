@@ -8,6 +8,7 @@ interface FavContextType {
   addToFav: (product: any) => void;
   removeFav: (id: number) => void;
   clearFav: () => void;
+
 }
 
 const FavContext = createContext<FavContextType | undefined>(undefined);
@@ -16,7 +17,7 @@ export function FavProvider({ children }: { children: React.ReactNode }) {
 
   const [Arrfav, setArrfav] = useState<any[]>([]);
 
-  // ✅ تحميل المفضلة من localStorage عند بداية التشغيل
+
   useEffect(() => {
     const saved = localStorage.getItem("favorites");
     if (saved) {
@@ -29,14 +30,16 @@ export function FavProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("favorites", JSON.stringify(Arrfav));
   }, [Arrfav]);
 
-  function addToFav(product: any) {
+
+  function addToFav(product : any) {
     const alreadyFav = Arrfav.some((item) => item.id === product.id);
     if (alreadyFav) {
       toast.error("المنتج موجود بالفعل في المفضلة ❤️");
       return;
-    }
-    setArrfav([...Arrfav, product]);
-    toast.success(" تم اضافه المنتج بنجاح ❤️");
+    } 
+    setArrfav( prv => [...prv , product]);
+    toast.success(" تم اضافه المنتج بنجاح ❤️");  
+    console.log(Arrfav);    
   }
 
   function removeFav(id: number) {
@@ -51,7 +54,7 @@ export function FavProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <FavContext.Provider value={{ Arrfav, addToFav, removeFav, clearFav }}>
+    <FavContext.Provider value={{ Arrfav, addToFav, removeFav, clearFav  }}>
       {children}
     </FavContext.Provider>
   );
@@ -64,3 +67,6 @@ export function useFav() {
   }
   return context;
 }
+
+
+

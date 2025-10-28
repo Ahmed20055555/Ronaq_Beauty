@@ -1,28 +1,34 @@
 "use client";
+
 import { useState } from "react";
-import { FaShoppingCart, FaHeart, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaHeart,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { useFav } from "../context/fav";
 import { useShoping } from "../context/shoping";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import "swiper/css/autoplay";
+import { Autoplay, Navigation } from "swiper/modules";
 import { allProducts } from "@/public/statc-data/statc-data";
 
 export default function Products() {
-  const { addToFav } = useFav();
-  const { addToShoping } = useShoping();
+  const { Arrfav, addToFav } = useFav();
+  const { shoping, addToShoping } = useShoping();
 
   const [selectedCategory, setSelectedCategory] = useState("الكل");
   const [maxPrice, setMaxPrice] = useState(200);
-  const categories = ["الكل", "زبدة كاكاو", "ماسك", "سكريات"];
 
-  const filteredProducts = allProducts.filter(
-     (p) =>  p.price <= maxPrice
-  );
+  // const categories = ["الكل", "زبدة كاكاو", "ماسك", "سكريات"];
+
+  const filteredProducts = allProducts.filter((p) => p.price <= maxPrice);
 
   // ✅ تقسيم المنتجات إلى مجموعات من 10
-  function chunkArray(array : any , size : any) {
+  function chunkArray(array: any, size: any) {
     const chunks = [];
     for (let i = 0; i < array.length; i += size) {
       chunks.push(array.slice(i, i + size));
@@ -40,8 +46,6 @@ export default function Products() {
 
       {/* 🔍 الفلترة */}
       <div className="flex w-fit flex-col sm:flex-row justify-between items-center bg-white p-4 shadow-md rounded-2xl mb-10 gap-4">
-
-
         <div className="flex max-[430px]:flex-col items-center gap-3">
           <input
             type="range"
@@ -58,13 +62,17 @@ export default function Products() {
       </div>
 
       {/* 🔄 عرض كل مجموعة في سلايدر منفصل */}
-      {productChunks.map((group, index) => (
-        <div key={index} className="mb-12 relative">
+      {productChunks.map((group, sliderIndex) => (
+        <div key={sliderIndex} className="mb-12 relative">
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation , Autoplay]}
+            autoplay={{
+              delay: 2000, 
+              disableOnInteraction: true, //  يفضل يفضل يخليه ما يوقفش لو المستخدم لمس السلايدر
+            }}
             navigation={{
-              nextEl: `.custom-next-${index}`,
-              prevEl: `.custom-prev-${index}`,
+              nextEl: `.custom-next-${sliderIndex}`,
+              prevEl: `.custom-prev-${sliderIndex}`,
             }}
             loop
             spaceBetween={20}
@@ -76,47 +84,71 @@ export default function Products() {
             }}
             className="mySwiper"
           >
-            {group.map((product : any) => (
-              <SwiperSlide key={product.id}>
-                <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-56 object-cover"
-                  />
-                  <div className="p-4 flex flex-col justify-between">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-500 mb-4">${product.price}</p>
+            {group.map((product: any) => {
 
-                    <div className="flex justify-between items-center">
-                      <button
-                        onClick={() => addToShoping(product)}
-                        className="cursor-pointer flex items-center gap-2 text-white bg-black px-2 py-2 rounded-xl hover:bg-gray-800 transition"
-                      >
-                        <FaShoppingCart /> أضف إلى السلة
-                      </button>
-                      <button
-                        onClick={() => addToFav(product)}
-                        className="text-gray-500 hover:text-red-500 transition cursor-pointer"
-                      >
-                        <FaHeart />
-                      </button>
+              const isFav = Arrfav.some((item) => item.id === product.id);
+              const isshop = shoping.some((item) => item.id === product.id)
+
+              return (
+                <SwiperSlide key={product.id}>
+                  <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-56 object-cover"
+                    />
+                    <div className="p-4 flex flex-col justify-between">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-gray-500 mb-4">${product.price}</p>
+
+                      <div className="flex justify-between max-[270px]:flex-col  max-[250px]:justify-start items-center">
+
+                        {
+                          isshop ?
+                            <button
+                              onClick={() => addToShoping(product)}
+                              className="cursor-pointer flex items-center  max-[270px]:mb-3 gap-2 text-white bg-green-500 px-2 py-2 rounded-xl hover:bg-green-800 transition"
+                            >
+                              <FaShoppingCart /> تم الاضافه  
+                            </button>
+                            :
+                            <button
+                              onClick={() => addToShoping(product)}
+                              className="cursor-pointer max-[270px]:mb-3 flex items-center gap-2 text-white bg-black px-2 py-2 rounded-xl hover:bg-gray-800 transition"
+                            >
+                              <FaShoppingCart /> أضف إلى السلة
+                            </button>
+                        }
+
+                        {isFav ? (
+                          <span className="text-green-600 text-[15px] font-semibold">
+                            ✔ تمت الإضافة
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => addToFav(product)}
+                            className="text-gray-500 hover:text-red-500 transition cursor-pointer"
+                          >
+                            <FaHeart />
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
 
             {/* 🔽 الأسهم المخصصة لكل سلايدر */}
             <div
-              className={`custom-prev-${index} absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-red-800 transition`}
+              className={`custom-prev-${sliderIndex} absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-red-800 transition`}
             >
               <FaChevronLeft />
             </div>
             <div
-              className={`custom-next-${index} absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-red-800 transition`}
+              className={`custom-next-${sliderIndex} absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black text-white p-2 rounded-full cursor-pointer hover:bg-red-800 transition`}
             >
               <FaChevronRight />
             </div>
@@ -127,9 +159,22 @@ export default function Products() {
   );
 }
 
-  // BALEA
 
-        {/* <div className="flex items-center gap-3">
+
+
+
+{/* {
+                       Btnfav ? <div> تم الاضافه </div> : 
+                         <button
+                            onClick={() => addToFav(product)}
+                            className="text-gray-500 hover:text-red-500 transition cursor-pointer"
+                          >
+                            <FaHeart />
+                          </button>   
+                      } */}
+
+
+{/* <div className="flex items-center gap-3">
           <label className="font-semibold text-gray-700">الفئة:</label>
           <select
             value={selectedCategory}

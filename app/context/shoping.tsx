@@ -54,7 +54,7 @@ export function ShopingProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ShopingContext.Provider
-      value={{ shoping, addToShoping, removeShoping, clearShoping }}
+      value={{ shoping , addToShoping, removeShoping, clearShoping }}
     >
       {children}
     </ShopingContext.Provider>
