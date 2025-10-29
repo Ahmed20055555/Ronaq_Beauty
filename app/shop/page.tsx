@@ -140,6 +140,9 @@ export default function Shopingpage() {
     setCart(withQuantity);
   }, [shoping]);
 
+
+
+ 
   // ✅ حساب الإجمالي الكلي
   useEffect(() => {
     const sum = cart.reduce(
@@ -156,12 +159,22 @@ export default function Shopingpage() {
         item.id === id
           ? {
               ...item,
-              quantity : Math.max(1, item.quantity + change), // ما يقلش عن 1
+              quantity : Math.max(0, item.quantity + change), // ما يقلش عن 1
             }
           : item
       )
     );
   }
+
+  // ✅ لو الكمية بقت 0 احذف المنتج تلقائيًا
+useEffect(() => {
+  cart.forEach((item) => {
+    if (item.quantity === 0) {
+      removeShoping(item.id);
+    }
+  });
+}, [cart]);
+
 
   return (
     <section
@@ -217,7 +230,7 @@ export default function Shopingpage() {
                     -
                   </button>
                   <p className="text-gray-800 font-semibold text-lg">
-                    {product.quantity}
+                  { product.quantity }
                   </p>
                   <button
                     onClick={() => updateQuantity(product.id, 1)}
