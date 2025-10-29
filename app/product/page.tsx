@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaShoppingCart,
   FaHeart,
@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { Autoplay, Navigation } from "swiper/modules";
 import { allProducts } from "@/public/statc-data/statc-data";
+import { FaLightbulb } from "react-icons/fa";
 
 export default function Products() {
   const { Arrfav, addToFav } = useFav();
@@ -22,7 +23,24 @@ export default function Products() {
 
   const [search, setSearch] = useState("");
   const [maxPrice, setMaxPrice] = useState(200);
+  const [darkMode, setDarkMode] = useState(false);
 
+
+
+
+// localstorage
+
+
+useEffect(() => {
+  const savedMode = localStorage.getItem("darkMode");
+  if (savedMode) {
+    setDarkMode(savedMode === "true");
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem("darkMode", darkMode.toString());
+}, [darkMode]);
 
   const filteredProducts = allProducts.filter((p) => (
 
@@ -39,15 +57,32 @@ export default function Products() {
     return chunks;
   }
 
+  function toggleDarkMode() {
+    setDarkMode((prev) => !prev);
+  }
+
   const productChunks = chunkArray(filteredProducts, 10);
 
   return (
-    <section className="px-6 py-10 bg-gray-50 min-h-screen relative">
-      <h2 className="text-3xl font-bold text-right mb-5 text-gray-800">
+    <section
+      className={`px-6 py-10 min-h-screen relative transition-all duration-500 ${
+        darkMode ? "bg-black text-white" : "bg-gray-50 text-gray-800"
+      }`}
+>
+      <div className="flex justify-between" >
+
+      <h2 className={`text-3xl  ${ darkMode ? "text-white" : " text-gray-800"} font-bold text-right mb-5 text-gray-800`}>
         منتجاتنا
       </h2>
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 bg-white p-4 shadow-md rounded-2xl">
+      <h2  onClick={ () => toggleDarkMode() } className={`cursor-pointer ${ darkMode ? "text-white" : " text-gray-800"} text-3xl font-bold text-right mb-5 text-gray-800`}>
+          <FaLightbulb />
+      </h2>
+
+      </div>
+
+
+      <div className= {`  ${ darkMode ? "bg-[#c0bcbc]" : "bg-white"} flex flex-col md:flex-row items-center justify-between gap-4 mb-10  p-4 shadow-md rounded-2xl`}>
 
         {/* مربع البحث */}
         <div className="relative w-full md:w-1/2">
