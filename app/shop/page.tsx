@@ -2,9 +2,17 @@
 import toast from "react-hot-toast";
 import { useShoping } from "../context/shoping";
 import { FaTrash } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 export default function Shopingpage() {
   const { shoping, removeShoping, clearShoping } = useShoping();
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    // حساب إجمالي السعر
+    const sum = shoping.reduce((acc, item) => acc + item.price, 0);
+    setTotal(sum);
+  }, [shoping]);
 
   return (
     <section
@@ -23,12 +31,16 @@ export default function Shopingpage() {
         {shoping.length > 0 && (
           <button
             onClick={clearShoping}
-            className=" cursor-pointer bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow-md transition cursor-pointer"
+            className=" cursor-pointer bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow-md transition"
           >
             حذف الكل
           </button>
         )}
       </div>
+
+      <h2 className="text-red-600 text-2xl font-bold text-center my-5">
+        الاجمالي : ${total.toFixed(2)}
+      </h2>
 
       {/* 🛍️ عرض المنتجات */}
       {shoping.length > 0 ? (
@@ -51,7 +63,7 @@ export default function Shopingpage() {
 
                 <button
                   onClick={() => removeShoping(product.id)}
-                  className="flex items-center justify-center gap-2 text-white bg-red-500 px-4 py-2 rounded-xl hover:bg-red-600 transition cursor-pointer"
+                  className="flex items-center justify-center gap-2 text-white bg-red-500 px-4 py-2 rounded-xl hover:bg-red-600 transition"
                 >
                   <FaTrash /> إزالة
                 </button>
@@ -70,7 +82,7 @@ export default function Shopingpage() {
         <div className="flex justify-center mt-10">
           <button
             onClick={() => toast.error("شكراً لشرائك ❤️ (محاكاة فقط)")}
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-lg font-semibold transition cursor-pointer"
+            className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-lg font-semibold transition"
           >
             إتمام الشراء
           </button>
