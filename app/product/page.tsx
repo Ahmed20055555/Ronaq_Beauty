@@ -23,7 +23,7 @@ export default function Products() {
   const { shoping, addToShoping } = useShoping();
 
   const [search, setSearch] = useState("");
-  const [maxPrice, setMaxPrice] = useState(300);
+  const [maxPrice, setMaxPrice] = useState(500);
   const [darkMode, setDarkMode] = useState(false);
 
 
@@ -115,7 +115,7 @@ useEffect(() => {
           <input
             type="range"
             min="0"
-            max="300"
+            max="500"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
             className="w-full md:w-40 accent-black"
@@ -165,8 +165,8 @@ useEffect(() => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-56 object-cover"
-                    />                    
+                      className="w-full h-68 object-cover rounded-2xl"
+                    />                   
                     </Link>
 
                     <div className="p-4 flex flex-col justify-between">

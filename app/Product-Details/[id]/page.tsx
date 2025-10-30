@@ -51,7 +51,7 @@ export default function ProductDetails() {
 
                 {/* 💬 التفاصيل */}
                 <div className="md:w-1/2 p-8 flex flex-col justify-center text-gray-800">
-                    <h2 className="text-3xl font-semibold mb-4">{product.name}</h2>
+                    <h2 className="text-2xl font-semibold mb-4">{product.name}</h2>
 
                     <p className="text-gray-600 mb-6 leading-relaxed">
                     منتج ألماني عالي الجودة، مصنوع بعناية باستخدام أحدث التقنيات لضمان أفضل النتائج وأمان تام على البشرة.
@@ -61,10 +61,10 @@ export default function ProductDetails() {
                         {product.price} EGP
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="  max-[370px]:flex-col flex items-center gap-4">
 
                         {
-                            isshop ? <button className="cursor-pointer flex items-center gap-2 bg-green-500 hover:bg-green-700 text-white px-6 py-3 rounded-full font-medium shadow-md transition"
+                            isshop ? <button className="cursor-pointer flex items-center gap-2 bg-green-500 hover:bg-green-700 text-white  px-3 py-3 rounded-full font-medium shadow-md transition"
                             >
                                 تم  الاضافه </button> :
                                 <button
