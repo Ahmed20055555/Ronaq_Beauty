@@ -23,7 +23,7 @@ export default function Products() {
   const { shoping, addToShoping } = useShoping();
 
   const [search, setSearch] = useState("");
-  const [maxPrice, setMaxPrice] = useState(200);
+  const [maxPrice, setMaxPrice] = useState(300);
   const [darkMode, setDarkMode] = useState(false);
 
 
@@ -115,7 +115,7 @@ useEffect(() => {
           <input
             type="range"
             min="0"
-            max="200"
+            max="300"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
             className="w-full md:w-40 accent-black"
