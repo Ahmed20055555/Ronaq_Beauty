@@ -160,13 +160,17 @@ useEffect(() => {
               return (
                 <SwiperSlide key={product.id}>
                   
-                  <Link href={`/Product-Details/${product.id}`} className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                  <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <Link href={`/Product-Details/${product.id}`}>
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-56 object-cover"
-                    />
+                    />                    
+                    </Link>
+
                     <div className="p-4 flex flex-col justify-between">
+                    
                       <h3 className="text-lg font-semibold text-gray-800 mb-2">
                         {product.name}
                       </h3>
@@ -204,8 +208,9 @@ useEffect(() => {
                           </button>
                         )}
                       </div>
+
                     </div>
-                  </Link>
+                  </div>
                 </SwiperSlide>
               );
             })}
