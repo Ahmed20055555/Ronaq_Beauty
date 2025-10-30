@@ -6,6 +6,8 @@ import Navbar from "./navbar/page";
 import { Toaster } from "react-hot-toast";
 import { ShopingProvider } from "./context/shoping";
 import Footer from "./footer/page";
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa6";
 
 
 const geistSans = Geist({
@@ -32,18 +34,27 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body>
 
-        <FavProvider> 
+        <FavProvider>
           <ShopingProvider>
             <Navbar />
-              {children}
-              <Toaster
+            {children}
+            <Toaster
               position="top-center"
               reverseOrder={false}
               toastOptions={{
                 duration: 1000, // default duration for all toasts
-                }}
-               />           
-          <Footer />
+              }}
+            />
+            <Link
+              href="https://wa.me/201001878563"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animate-pulse-smoot fixed bottom-6 right-2 z-[10000] flex items-center justify-center w-8 h-8 rounded bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse-smooth"
+              aria-label="Contact on WhatsApp"
+            >
+              <FaWhatsapp className="w-6 h-6" />
+            </Link>
+            <Footer />
           </ShopingProvider>
         </FavProvider>
       </body>
