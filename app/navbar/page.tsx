@@ -21,9 +21,15 @@ export default function Navbar() {
                         </Link>
 
                         {/* WhatsApp */}
-                        <Link href="https://wa.me/+20 10 01878563" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors duration-200">
+                        <Link 
+                            href="https://wa.me/201001878563" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="hover:text-green-400 transition-colors duration-200"
+                            >
                             <FaWhatsapp className="w-5 h-5" />
                         </Link>
+
 
                         {/* Instagram */}
                         <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-400 transition-colors duration-200">
