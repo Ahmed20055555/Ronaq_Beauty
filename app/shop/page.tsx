@@ -131,7 +131,6 @@ export default function Shopingpage() {
   const [cart, setCart] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
 
-  // ✅ لما تتغير سلة الشراء الأصلية، نضيف لها خاصية quantity
   useEffect(() => {
     const withQuantity = shoping.map((item) => ({
       ...item,
@@ -140,10 +139,6 @@ export default function Shopingpage() {
     setCart(withQuantity);
   }, [shoping]);
 
-
-
- 
-  // ✅ حساب الإجمالي الكلي
   useEffect(() => {
     const sum = cart.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -152,21 +147,19 @@ export default function Shopingpage() {
     setTotal(sum);
   }, [cart]);
 
-  // ✅ دالة لزيادة أو تقليل الكمية
   function updateQuantity(id: number, change: number) {
     setCart((prev) =>
       prev.map((item) =>
         item.id === id
           ? {
               ...item,
-              quantity : Math.max(0, item.quantity + change), // ما يقلش عن 1
+              quantity : Math.max(0 , item.quantity + change), // ما يقلش عن 1
             }
           : item
       )
     );
   }
 
-  // ✅ لو الكمية بقت 0 احذف المنتج تلقائيًا
 useEffect(() => {
   cart.forEach((item) => {
     if (item.quantity === 0) {
@@ -193,14 +186,14 @@ useEffect(() => {
         {cart.length > 0 && (
           <button
             onClick={clearShoping}
-            className="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow-md transition"
+            className="  max-[330px]:mt-2  cursor-pointer bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow-md transition"
           >
             حذف الكل
           </button>
         )}
       </div>
 
-      <h2 className="text-red-600 text-2xl font-bold text-center my-5">
+      <h2 className=" max-[330px]:text-[20px] max-[330px]:text-right text-red-600 text-2xl font-bold text-center my-5">
         الإجمالي : ${total.toFixed(2)}
       </h2>
 

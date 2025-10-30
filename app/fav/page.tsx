@@ -12,7 +12,7 @@ export default function Fav() {
         {Arrfav.length > 0 && (
           <button
             onClick={clearFav}
-            className=" cursor-pointer  bg-red-500 text-white px-2 py-2 rounded-xl hover:bg-red-600 transition"
+            className=" max-[270px]:mt-2 cursor-pointer  bg-red-500 text-white px-2 py-2 rounded-xl hover:bg-red-600 transition"
           >
             إزالة الكل
           </button>

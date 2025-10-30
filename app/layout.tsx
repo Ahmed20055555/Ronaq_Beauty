@@ -36,8 +36,14 @@ export default function RootLayout({
           <ShopingProvider>
             <Navbar />
               {children}
-              <Toaster position="top-center" reverseOrder={false} />
-              <Footer />
+              <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                duration: 1000, // default duration for all toasts
+                }}
+               />           
+          <Footer />
           </ShopingProvider>
         </FavProvider>
       </body>

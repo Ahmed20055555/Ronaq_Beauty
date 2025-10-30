@@ -16,6 +16,7 @@ import "swiper/css/autoplay";
 import { Autoplay, Navigation } from "swiper/modules";
 import { allProducts } from "@/public/statc-data/statc-data";
 import { FaLightbulb } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Products() {
   const { Arrfav, addToFav } = useFav();
@@ -71,8 +72,8 @@ useEffect(() => {
 >
       <div className="flex justify-between" >
 
-      <h2 className={`text-3xl  ${ darkMode ? "text-white" : " text-gray-800"} font-bold text-right mb-5 text-gray-800`}>
-        منتجاتنا
+      <h2 className={`text-[15px]   ${ darkMode ? "text-white" : " text-[#848181]"} font-bold text-right mb-5 `}>
+      جودة ألمانية أصلية – عناية متكاملة ونتائج مضمونة.
       </h2>
 
       <h2  onClick={ () => toggleDarkMode() } className={`cursor-pointer ${ darkMode ? "text-white" : " text-gray-800"} text-3xl font-bold text-right mb-5 text-gray-800`}>
@@ -130,7 +131,7 @@ useEffect(() => {
 
       {/* 🔄 عرض كل مجموعة في سلايدر منفصل */}
       {productChunks.map((group, sliderIndex) => (
-        <div key={sliderIndex} className="mb-12 relative">
+        <div key={sliderIndex} className="  mb-12 relative">
           <Swiper
             modules={[Navigation, Autoplay]}
             autoplay={{
@@ -158,7 +159,8 @@ useEffect(() => {
 
               return (
                 <SwiperSlide key={product.id}>
-                  <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                  
+                  <Link href={`/Product-Details/${product.id}`} className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -203,7 +205,7 @@ useEffect(() => {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </SwiperSlide>
               );
             })}
